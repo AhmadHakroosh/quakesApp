@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="quakesApp">
+<head>
+	<meta charset="UTF-8">
+	<title>Earth Quakes</title>
+
+	<!--jQuery-->
+	<script type="text/javascript" src="vendor/jquery/jquery.min.js"></script>
+	<!--Bootstrap-->
+	<link rel="stylesheet" type="text/css" href="vendor/bootstrap/bootstrap.min.css">
+	<script type="text/javascript" src="vendor/bootstrap/bootstrap.min.js"></script>
+	<!--AngularJS-->
+	<script type="text/javascript" src="vendor/angularjs/angular.min.js"></script>
+	<!--Google API-->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBa8wOZQVkov_V2zTw8BVE6mzhN1A8S4c4"></script>
+
+	<!--Application-->
+	<script type="text/javascript" src="app.js"></script>
+	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
+</head>
+<body>
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#">QuakesApp</a>
+			</div>
+			<div id="navbar" class="navbar-collapse collapse">
+			</div>
+		</div>
+	</nav>
+
+    <div class="container-fluid" ng-controller="eventsCtrl">
+      	<div class="row">
+        	<div class="col-sm-3 col-md-3 sidebar">
+				<form class="keyword-form">
+					<input type="text" class="form-control" placeholder="Search keywords" ng-model="search">
+				</form>
+				<hr>
+				<form class="times-form" ng-submit="limitDates()">
+					<label>Start Date: </label>
+					<input type="date" class="form-control" ng-model="startDate" value="2016-01-01">
+					<label>End Date: </label>
+					<input type="date" class="form-control" ng-model="endDate" value="2016-01-02">
+					<br>
+					<input type="submit" >
+					<hr>
+				</form>
+        		<ul class="nav nav-sidebar">
+					<li ng-repeat="event in events | orderBy:'-event.properties.time' | filter: search" class="event-item">
+						<a ng-href="#" id="{{event.id}}" ng-click='toggleMarker()'>{{ event.properties.place }}</a>
+					</li>
+        		</ul>
+      		</div>
+      		<div class="col-sm-offset-3 col-md-offset-3">
+      			<div id="map"></div>
+      		</div>
+      	</div>
+    </div>
+</body>
+</html>
