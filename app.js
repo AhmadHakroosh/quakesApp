@@ -9,7 +9,6 @@ angular.module('quakesApp', [])
 
 	//get the events
 	getEvents($scope.url);
-	
 
 	//a function to retreive dates entered within the form, and send a new request with new parameters
 	$scope.limitDates = function () {
